@@ -15,22 +15,35 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
             background: #0a0a0a;
+            color: #e0e0e0; /* Darker text for better readability */
+        }
+
+        /* Enhanced Color Scheme */
+        :root {
+            --primary-dark: #1a1a2e;
+            --secondary-dark: #16213e;
+            --accent-purple: #6d67e4;
+            --accent-blue: #46c3db;
+            --accent-pink: #e966a0;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #888888;
         }
 
         /* Glassmorphism base styles */
         .glass {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(25, 25, 35, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
 
         .glass-strong {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(30, 30, 45, 0.8);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         /* Animated gradient background */
@@ -41,9 +54,9 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background: linear-gradient(45deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #6d67e4 100%);
             background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            animation: gradientShift 20s ease infinite;
         }
 
         @keyframes gradientShift {
@@ -56,15 +69,15 @@
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.6;
-            animation: float 20s infinite ease-in-out;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 25s infinite ease-in-out;
         }
 
         .orb1 {
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.8), transparent);
+            background: radial-gradient(circle, rgba(109, 103, 228, 0.6), transparent);
             top: 10%;
             left: 10%;
             animation-delay: 0s;
@@ -73,26 +86,26 @@
         .orb2 {
             width: 350px;
             height: 350px;
-            background: radial-gradient(circle, rgba(249, 147, 251, 0.8), transparent);
+            background: radial-gradient(circle, rgba(233, 102, 160, 0.5), transparent);
             top: 50%;
             right: 10%;
-            animation-delay: 5s;
+            animation-delay: 8s;
         }
 
         .orb3 {
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, rgba(79, 172, 254, 0.8), transparent);
+            background: radial-gradient(circle, rgba(70, 195, 219, 0.5), transparent);
             bottom: 10%;
             left: 50%;
-            animation-delay: 10s;
+            animation-delay: 16s;
         }
 
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -50px) scale(1.1); }
-            50% { transform: translate(-30px, 30px) scale(0.9); }
-            75% { transform: translate(40px, 20px) scale(1.05); }
+            25% { transform: translate(60px, -40px) scale(1.1); }
+            50% { transform: translate(-40px, 30px) scale(0.9); }
+            75% { transform: translate(50px, 25px) scale(1.05); }
         }
 
         /* Stars background */
@@ -111,12 +124,12 @@
             height: 2px;
             background: white;
             border-radius: 50%;
-            animation: twinkle 3s infinite;
+            animation: twinkle 4s infinite;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.3); }
         }
 
         /* Container */
@@ -150,12 +163,12 @@
         .logo {
             font-size: 32px;
             font-weight: 900;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: linear-gradient(135deg, #6d67e4 0%, #46c3db 50%, #e966a0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 2px;
-            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+            text-shadow: 0 0 30px rgba(109, 103, 228, 0.5);
         }
 
         .nav-links {
@@ -165,7 +178,7 @@
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -180,7 +193,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, #6d67e4, #46c3db);
             transition: width 0.3s ease;
         }
 
@@ -208,7 +221,7 @@
         /* Landing Page */
         .hero {
             text-align: center;
-            padding: 100px 20px;
+            padding: 120px 20px;
             position: relative;
         }
 
@@ -216,22 +229,22 @@
             font-size: clamp(48px, 10vw, 120px);
             font-weight: 900;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #764ba2 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #6d67e4 30%, #46c3db 70%, #e966a0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.2;
-            animation: glowText 3s ease-in-out infinite;
+            animation: glowText 4s ease-in-out infinite;
         }
 
         @keyframes glowText {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5)); }
-            50% { filter: drop-shadow(0 0 40px rgba(249, 147, 251, 0.8)); }
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(109, 103, 228, 0.4)); }
+            50% { filter: drop-shadow(0 0 40px rgba(70, 195, 219, 0.6)); }
         }
 
         .hero h2 {
             font-size: clamp(24px, 5vw, 48px);
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
             margin-bottom: 30px;
             font-weight: 300;
             letter-spacing: 1px;
@@ -239,7 +252,7 @@
 
         .hero p {
             font-size: clamp(16px, 2vw, 24px);
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto 50px;
             line-height: 1.8;
@@ -251,13 +264,13 @@
             font-size: 20px;
             font-weight: 700;
             color: white;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6d67e4 0%, #46c3db 100%);
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 40px rgba(109, 103, 228, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -269,8 +282,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
         }
 
         .cta-button:hover::before {
@@ -279,21 +292,21 @@
 
         .cta-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 15px 50px rgba(109, 103, 228, 0.6);
         }
 
         /* Features Section */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            margin: 80px 0;
+            margin: 100px 0;
         }
 
         .feature-card {
             padding: 40px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
+            border-radius: 25px;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
@@ -305,9 +318,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(249, 147, 251, 0.1));
+            background: linear-gradient(135deg, rgba(109, 103, 228, 0.1), rgba(70, 195, 219, 0.1));
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
 
         .feature-card:hover::before {
@@ -315,27 +328,63 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(109, 103, 228, 0.3);
         }
 
         .feature-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px currentColor);
+            font-size: 64px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px currentColor);
         }
 
         .feature-card h3 {
             font-size: 28px;
-            color: white;
+            color: var(--text-primary);
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         .feature-card p {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* New Skills Section */
+        .skills-showcase {
+            margin: 100px 0;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .skill-card {
+            padding: 30px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(109, 103, 228, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .skill-card h4 {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
         }
 
         /* Form Page */
@@ -343,7 +392,7 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 50px;
-            border-radius: 40px;
+            border-radius: 30px;
             animation: slideUp 0.6s ease;
         }
 
@@ -358,15 +407,15 @@
         }
 
         .form-header h2 {
-            font-size: 48px;
-            color: white;
+            font-size: 42px;
+            color: var(--text-primary);
             margin-bottom: 15px;
             font-weight: 800;
         }
 
         .form-header p {
             font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
         }
 
         .form-group {
@@ -376,7 +425,7 @@
         .form-group label {
             display: block;
             font-size: 18px;
-            color: white;
+            color: var(--text-primary);
             margin-bottom: 15px;
             font-weight: 600;
             display: flex;
@@ -393,7 +442,7 @@
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             background: rgba(255, 255, 255, 0.05);
-            color: white;
+            color: var(--text-primary);
             transition: all 0.3s ease;
             font-family: inherit;
         }
@@ -402,14 +451,14 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            border-color: #6d67e4;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 25px rgba(109, 103, 228, 0.3);
         }
 
         .form-group select option {
-            background: #1a1a2e;
-            color: white;
+            background: var(--primary-dark);
+            color: var(--text-primary);
         }
 
         .level-buttons {
@@ -422,7 +471,7 @@
             padding: 20px;
             font-size: 16px;
             font-weight: 600;
-            color: white;
+            color: var(--text-primary);
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
@@ -436,9 +485,9 @@
         }
 
         .level-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-color: #667eea;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #6d67e4, #46c3db);
+            border-color: #6d67e4;
+            box-shadow: 0 10px 30px rgba(109, 103, 228, 0.4);
         }
 
         .submit-btn {
@@ -447,7 +496,7 @@
             font-size: 20px;
             font-weight: 700;
             color: white;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6d67e4 0%, #46c3db 100%);
             border: none;
             border-radius: 15px;
             cursor: pointer;
@@ -457,7 +506,7 @@
 
         .submit-btn:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 40px rgba(109, 103, 228, 0.5);
         }
 
         .submit-btn:disabled {
@@ -472,8 +521,8 @@
         }
 
         .roadmap-header h2 {
-            font-size: 56px;
-            color: white;
+            font-size: 52px;
+            color: var(--text-primary);
             margin-bottom: 20px;
             font-weight: 900;
         }
@@ -488,7 +537,7 @@
         }
 
         .roadmap-meta span {
-            color: white;
+            color: var(--text-primary);
             font-size: 16px;
             font-weight: 600;
             display: flex;
@@ -509,7 +558,7 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(180deg, #667eea, #764ba2, #f093fb);
+            background: linear-gradient(180deg, #6d67e4, #46c3db, #e966a0);
             border-radius: 10px;
         }
 
@@ -548,7 +597,7 @@
 
         .timeline-content:hover {
             transform: translateX(10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 60px rgba(109, 103, 228, 0.3);
         }
 
         .phase-label {
@@ -558,25 +607,26 @@
             font-size: 14px;
             font-weight: 700;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #6d67e4, #46c3db);
+            color: white;
         }
 
         .timeline-content h3 {
             font-size: 32px;
-            color: white;
+            color: var(--text-primary);
             margin-bottom: 15px;
             font-weight: 800;
         }
 
         .timeline-content p {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
             margin-bottom: 25px;
             line-height: 1.6;
         }
 
         .topics-list {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             padding: 25px;
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -609,20 +659,20 @@
         }
 
         .topic-content h4 {
-            color: white;
+            color: var(--text-primary);
             font-size: 18px;
             margin-bottom: 8px;
             font-weight: 600;
         }
 
         .topic-content p {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-secondary);
             font-size: 14px;
             margin: 0;
         }
 
         .topic-duration {
-            color: #667eea;
+            color: #6d67e4;
             font-size: 14px;
             font-weight: 600;
         }
@@ -636,7 +686,7 @@
         }
 
         .progress-section h3 {
-            color: white;
+            color: var(--text-primary);
             font-size: 28px;
             margin-bottom: 30px;
         }
@@ -652,7 +702,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            background: linear-gradient(90deg, #6d67e4, #46c3db, #e966a0);
             border-radius: 10px;
             animation: progressAnimation 2s ease-out;
             position: relative;
@@ -697,7 +747,7 @@
 
         .action-card:hover {
             transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 20px 50px rgba(109, 103, 228, 0.4);
         }
 
         .action-card-icon {
@@ -706,27 +756,64 @@
         }
 
         .action-card h4 {
-            color: white;
+            color: var(--text-primary);
             font-size: 20px;
             margin-bottom: 10px;
             font-weight: 700;
         }
 
         .action-card p {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             margin-top: 100px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .founders-section {
+            margin-bottom: 40px;
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .founder-card {
+            padding: 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(109, 103, 228, 0.3);
+        }
+
+        .founder-name {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .founder-role {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
         footer p {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-secondary);
             font-size: 16px;
             margin-bottom: 20px;
         }
@@ -746,14 +833,14 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            color: white;
+            color: var(--text-primary);
             transition: all 0.3s ease;
             text-decoration: none;
         }
 
         .social-links a:hover {
             transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 10px 30px rgba(109, 103, 228, 0.5);
         }
 
         /* Responsive */
@@ -789,6 +876,10 @@
             .features {
                 grid-template-columns: 1fr;
             }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         /* Animations for elements */
@@ -820,7 +911,7 @@
             width: 60px;
             height: 60px;
             border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top-color: #667eea;
+            border-top-color: #6d67e4;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
@@ -837,7 +928,7 @@
             gap: 10px;
             padding: 12px 25px;
             border-radius: 30px;
-            color: white;
+            color: var(--text-primary);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -866,13 +957,13 @@
         }
 
         .success-banner h3 {
-            color: white;
+            color: var(--text-primary);
             font-size: 24px;
             margin-bottom: 10px;
         }
 
         .success-banner p {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-secondary);
             font-size: 16px;
         }
     </style>
@@ -891,7 +982,6 @@
             <div class="logo">LIAA</div>
             <ul class="nav-links">
                 <li><a href="#" onclick="showPage('landing')">Home</a></li>
-                <li><a href="#" onclick="showPage('about')">About</a></li>
                 <li><a href="#" onclick="showPage('form')">Create Roadmap</a></li>
             </ul>
         </div>
@@ -941,6 +1031,64 @@
                     <p>Roadmaps that evolve with you. Adjust your path as you learn and discover new interests.</p>
                 </div>
             </div>
+
+            <!-- New Skills Showcase Section -->
+            <div class="skills-showcase">
+                <h2 style="color: var(--text-primary); font-size: 42px; margin-bottom: 20px;">Explore 15+ Skills</h2>
+                <p style="color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto 50px;">
+                    Master in-demand skills with our comprehensive learning roadmaps
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-card glass" onclick="selectSkill('Web Development')">
+                        <div class="skill-icon">🌐</div>
+                        <h4>Web Development</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Data Science')">
+                        <div class="skill-icon">📊</div>
+                        <h4>Data Science</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Mobile Development')">
+                        <div class="skill-icon">📱</div>
+                        <h4>Mobile Development</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('UI/UX Design')">
+                        <div class="skill-icon">🎨</div>
+                        <h4>UI/UX Design</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Digital Marketing')">
+                        <div class="skill-icon">📈</div>
+                        <h4>Digital Marketing</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Machine Learning')">
+                        <div class="skill-icon">🤖</div>
+                        <h4>Machine Learning</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Cybersecurity')">
+                        <div class="skill-icon">🔒</div>
+                        <h4>Cybersecurity</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Cloud Computing')">
+                        <div class="skill-icon">☁️</div>
+                        <h4>Cloud Computing</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Blockchain')">
+                        <div class="skill-icon">⛓️</div>
+                        <h4>Blockchain</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Game Development')">
+                        <div class="skill-icon">🎮</div>
+                        <h4>Game Development</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Artificial Intelligence')">
+                        <div class="skill-icon">🧠</div>
+                        <h4>AI Engineering</h4>
+                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('DevOps')">
+                        <div class="skill-icon">🔄</div>
+                        <h4>DevOps</h4>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Form Page -->
@@ -971,6 +1119,11 @@
                             <option value="Cloud Computing">☁️ Cloud Computing</option>
                             <option value="Blockchain">⛓️ Blockchain</option>
                             <option value="Game Development">🎮 Game Development</option>
+                            <option value="Artificial Intelligence">🧠 Artificial Intelligence</option>
+                            <option value="DevOps">🔄 DevOps</option>
+                            <option value="Software Engineering">💻 Software Engineering</option>
+                            <option value="Product Management">📋 Product Management</option>
+                            <option value="Content Writing">✍️ Content Writing</option>
                         </select>
                     </div>
 
@@ -1024,7 +1177,7 @@
 
                 <div class="loading" id="loadingSpinner">
                     <div class="spinner"></div>
-                    <p style="color: white; font-size: 18px;">Creating your personalized roadmap...</p>
+                    <p style="color: var(--text-primary); font-size: 18px;">Creating your personalized roadmap...</p>
                 </div>
             </div>
         </div>
@@ -1054,7 +1207,7 @@
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 0%" id="progressBar"></div>
                 </div>
-                <p style="color: rgba(255,255,255,0.7); margin-top: 15px;">
+                <p style="color: var(--text-secondary); margin-top: 15px;">
                     <span id="progressText">0% Complete</span> - Keep pushing forward!
                 </p>
             </div>
@@ -1124,23 +1277,43 @@
 
     <footer>
         <div class="glass-strong" style="max-width: 800px; margin: 0 auto; padding: 40px; border-radius: 30px;">
-            <h3 style="color: white; font-size: 32px; margin-bottom: 15px; font-weight: 800;">LIAA</h3>
-            <p style="color: rgba(255,255,255,0.8); font-size: 18px; margin-bottom: 25px;">
+            <h3 style="color: var(--text-primary); font-size: 32px; margin-bottom: 15px; font-weight: 800;">LIAA</h3>
+            <p style="color: var(--text-secondary); font-size: 18px; margin-bottom: 25px;">
                 Learn It All App - Your companion for structured learning and skill mastery
             </p>
-            <p>Made with 💜 for learners worldwide</p>
+            
+            <!-- Founders Section -->
+            <div class="founders-section">
+                <h4 style="color: var(--text-primary); margin-bottom: 20px; font-size: 20px;">Meet Our Founders</h4>
+                <div class="founders-grid">
+                    <div class="founder-card glass">
+                        <div class="founder-name">Lavika Panwar</div>
+                        <div class="founder-role">Co-Founder & CEO</div>
+                    </div>
+                    <div class="founder-card glass">
+                        <div class="founder-name">Ekta Rathore</div>
+                        <div class="founder-role">Co-Founder & CTO</div>
+                    </div>
+                    <div class="founder-card glass">
+                        <div class="founder-name">Anupriya Kumari</div>
+                        <div class="founder-role">Co-Founder & COO</div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color: var(--text-secondary);">Made with 💜 for learners worldwide</p>
             <div class="social-links">
                 <a href="#" class="glass">📧</a>
                 <a href="#" class="glass">🐦</a>
                 <a href="#" class="glass">💼</a>
                 <a href="#" class="glass">📱</a>
             </div>
-            <p style="margin-top: 30px; font-size: 14px;">© 2025 LIAA. All rights reserved.</p>
+            <p style="margin-top: 30px; font-size: 14px; color: var(--text-muted);">© 2025 LIAA. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Comprehensive roadmap data for 10 skills
+        // Enhanced roadmap data with 15+ skills
         const roadmapData = {
             "Web Development": {
                 phases: [
@@ -1250,451 +1423,128 @@
                     }
                 ]
             },
-            "Mobile Development": {
+            // Add more skills here following the same pattern...
+            "Artificial Intelligence": {
                 phases: [
                     {
-                        title: "Fundamentals & Platform Choice",
-                        description: "Learn mobile development basics and choose your development platform.",
+                        title: "AI Fundamentals & Python",
+                        description: "Build the foundation for AI development with essential programming and math skills.",
                         topics: [
-                            { icon: "📱", title: "Mobile Development Overview", description: "Understand native vs cross-platform development and platform ecosystems.", duration: "Week 1-2" },
-                            { icon: "⚛️", title: "React Native Fundamentals", description: "Learn React Native basics, components, and mobile-specific patterns.", duration: "Week 2-5" },
-                            { icon: "🎨", title: "Mobile UI/UX Principles", description: "Master mobile design patterns, navigation, and user experience best practices.", duration: "Week 5-7" },
-                            { icon: "🛠️", title: "Development Environment", description: "Set up Android Studio, Xcode, and mobile development tools.", duration: "Week 1-2" }
+                            { icon: "🐍", title: "Python for AI", description: "Master Python programming, NumPy, Pandas, and scientific computing libraries.", duration: "Week 1-3" },
+                            { icon: "📊", title: "Mathematics for AI", description: "Learn linear algebra, calculus, probability, and statistics essential for AI.", duration: "Week 3-6" },
+                            { icon: "🧮", title: "Data Structures & Algorithms", description: "Understand essential algorithms and data structures for AI applications.", duration: "Week 6-8" },
+                            { icon: "📈", title: "Data Preprocessing", description: "Master data cleaning, normalization, and feature engineering techniques.", duration: "Week 8-10" }
                         ]
                     },
                     {
-                        title: "Core Development Skills",
-                        description: "Build functional mobile applications with core features and APIs.",
-                        topics: [
-                            { icon: "📲", title: "Navigation & Routing", description: "Implement tab navigation, stack navigation, and deep linking.", duration: "Week 8-10" },
-                            { icon: "💾", title: "Data Management", description: "Learn local storage, async storage, and state management solutions.", duration: "Week 10-12" },
-                            { icon: "🌐", title: "API Integration", description: "Connect mobile apps to REST APIs, handle authentication, and manage network requests.", duration: "Week 12-14" },
-                            { icon: "🎯", title: "Mobile Forms & Input", description: "Master touch interactions, gestures, and form handling on mobile.", duration: "Week 14-15" }
-                        ]
-                    },
-                    {
-                        title: "Advanced Features",
-                        description: "Implement advanced mobile features and platform-specific capabilities.",
-                        topics: [
-                            { icon: "📷", title: "Device APIs", description: "Access camera, location, sensors, and other device capabilities.", duration: "Week 16-18" },
-                            { icon: "🔔", title: "Push Notifications", description: "Implement local and push notifications for user engagement.", duration: "Week 18-20" },
-                            { icon: "⚡", title: "Performance Optimization", description: "Optimize app performance, reduce bundle size, and improve startup time.", duration: "Week 20-22" },
-                            { icon: "🧪", title: "Testing & Debugging", description: "Learn mobile testing frameworks and debugging techniques.", duration: "Week 22-23" }
-                        ]
-                    },
-                    {
-                        title: "Production Ready Apps",
-                        description: "Prepare apps for production deployment and app store submission.",
-                        topics: [
-                            { icon: "🏗️", title: "App Architecture", description: "Implement clean architecture, dependency injection, and scalable patterns.", duration: "Week 24-26" },
-                            { icon: "🔒", title: "Security & Authentication", description: "Implement biometric auth, secure storage, and data protection.", duration: "Week 26-28" },
-                            { icon: "📦", title: "Build & Deployment", description: "Master app signing, build configurations, and CI/CD pipelines.", duration: "Week 28-30" },
-                            { icon: "🏪", title: "App Store Submission", description: "Prepare for Google Play and App Store submission processes.", duration: "Week 30-32" }
-                        ]
-                    },
-                    {
-                        title: "Specialization & Advanced Topics",
-                        description: "Explore advanced mobile development topics and emerging technologies.",
-                        topics: [
-                            { icon: "🎮", title: "Mobile Games & Graphics", description: "Learn about mobile gaming, 2D/3D graphics, and game engines.", duration: "Week 33-35" },
-                            { icon: "🤖", title: "AI Integration", description: "Integrate machine learning models and AI features into mobile apps.", duration: "Week 35-37" },
-                            { icon: "💎", title: "Native Module Development", description: "Create custom native modules for React Native applications.", duration: "Week 37-39" },
-                            { icon: "🚀", title: "Advanced Architecture", description: "Explore micro-frontends, modular architecture, and enterprise patterns.", duration: "Week 39-42" }
-                        ]
-                    }
-                ]
-            },
-            "UI/UX Design": {
-                phases: [
-                    {
-                        title: "Design Fundamentals",
-                        description: "Master the core principles of visual design and user experience.",
-                        topics: [
-                            { icon: "🎨", title: "Design Principles", description: "Learn color theory, typography, layout, and visual hierarchy principles.", duration: "Week 1-3" },
-                            { icon: "👥", title: "User Research", description: "Master user interviews, surveys, personas, and empathy mapping.", duration: "Week 3-5" },
-                            { icon: "📐", title: "Wireframing & Prototyping", description: "Create low-fidelity wireframes and interactive prototypes.", duration: "Week 5-7" },
-                            { icon: "🛠️", title: "Design Tools", description: "Master Figma, Adobe XD, or Sketch for professional design work.", duration: "Week 1-2" }
-                        ]
-                    },
-                    {
-                        title: "Interaction Design",
-                        description: "Design intuitive and engaging user interactions and workflows.",
-                        topics: [
-                            { icon: "🔄", title: "User Flows", description: "Design complete user journeys and task flows for different scenarios.", duration: "Week 8-10" },
-                            { icon: "🎯", title: "Information Architecture", description: "Structure content logically and create intuitive navigation systems.", duration: "Week 10-12" },
-                            { icon: "✋", title: "Interaction Patterns", description: "Master common interaction patterns and micro-interactions.", duration: "Week 12-14" },
-                            { icon: "📱", title: "Mobile Design Patterns", description: "Learn platform-specific design guidelines and best practices.", duration: "Week 14-15" }
-                        ]
-                    },
-                    {
-                        title: "Visual Design Mastery",
-                        description: "Create beautiful, consistent, and brand-aligned visual designs.",
-                        topics: [
-                            { icon: "🎭", title: "Design Systems", description: "Create and maintain comprehensive design systems and component libraries.", duration: "Week 16-18" },
-                            { icon: "🌈", title: "Advanced Visual Design", description: "Master advanced color palettes, typography systems, and visual storytelling.", duration: "Week 18-20" },
-                            { icon: "🎬", title: "Motion Design", description: "Learn animation principles and create engaging motion designs.", duration: "Week 20-22" },
-                            { icon: "📊", title: "Data Visualization", description: "Design effective charts, graphs, and data-driven interfaces.", duration: "Week 22-23" }
-                        ]
-                    },
-                    {
-                        title: "UX Research & Testing",
-                        description: "Validate designs through user research and usability testing.",
-                        topics: [
-                            { icon: "🔍", title: "Usability Testing", description: "Plan and conduct usability tests to gather user feedback.", duration: "Week 24-26" },
-                            { icon: "📈", title: "Analytics & Metrics", description: "Use quantitative data to inform design decisions and measure success.", duration: "Week 26-28" },
-                            { icon: "🔄", title: "Iterative Design", description: "Implement feedback loops and continuous improvement processes.", duration: "Week 28-30" },
-                            { icon: "🧠", title: "Accessibility Design", description: "Create inclusive designs that work for users with disabilities.", duration: "Week 30-32" }
-                        ]
-                    },
-                    {
-                        title: "Advanced Specialization",
-                        description: "Specialize in advanced UX domains and leadership skills.",
-                        topics: [
-                            { icon: "🚀", title: "Product Strategy", description: "Align design with business goals and product roadmap planning.", duration: "Week 33-35" },
-                            { icon: "🤖", title: "AI & UX", description: "Design for AI-powered interfaces and machine learning applications.", duration: "Week 35-37" },
-                            { icon: "🌍", title: "International Design", description: "Design for global audiences and cultural considerations.", duration: "Week 37-39" },
-                            { icon: "💼", title: "Design Leadership", description: "Lead design teams, manage projects, and drive design culture.", duration: "Week 39-42" }
-                        ]
-                    }
-                ]
-            },
-            "Digital Marketing": {
-                phases: [
-                    {
-                        title: "Marketing Fundamentals",
-                        description: "Understand core marketing principles and digital marketing landscape.",
-                        topics: [
-                            { icon: "🎯", title: "Marketing Strategy", description: "Learn marketing funnel, customer journey mapping, and positioning strategies.", duration: "Week 1-3" },
-                            { icon: "📊", title: "Market Research", description: "Master competitor analysis, audience segmentation, and market trends.", duration: "Week 3-5" },
-                            { icon: "💡", title: "Content Strategy", description: "Develop content calendars, storytelling, and content marketing frameworks.", duration: "Week 5-7" },
-                            { icon: "🌐", title: "Digital Landscape", description: "Understand SEO, SEM, social media, and email marketing ecosystems.", duration: "Week 1-2" }
-                        ]
-                    },
-                    {
-                        title: "Channel Mastery",
-                        description: "Master individual digital marketing channels and platforms.",
-                        topics: [
-                            { icon: "🔍", title: "SEO Optimization", description: "Master on-page SEO, technical SEO, and link building strategies.", duration: "Week 8-10" },
-                            { icon: "💰", title: "PPC Advertising", description: "Learn Google Ads, Facebook Ads, and programmatic advertising platforms.", duration: "Week 10-12" },
-                            { icon: "📱", title: "Social Media Marketing", description: "Develop strategies for Instagram, LinkedIn, Twitter, and emerging platforms.", duration: "Week 12-14" },
-                            { icon: "✉️", title: "Email Marketing", description: "Master email automation, segmentation, and conversion optimization.", duration: "Week 14-15" }
-                        ]
-                    },
-                    {
-                        title: "Content & Analytics",
-                        description: "Create compelling content and measure marketing performance.",
-                        topics: [
-                            { icon: "📝", title: "Content Creation", description: "Learn copywriting, visual content creation, and multimedia production.", duration: "Week 16-18" },
-                            { icon: "🎥", title: "Video Marketing", description: "Master YouTube strategy, video SEO, and short-form video content.", duration: "Week 18-20" },
-                            { icon: "📈", title: "Analytics & Reporting", description: "Use Google Analytics, social insights, and marketing dashboards.", duration: "Week 20-22" },
-                            { icon: "🔄", title: "Conversion Optimization", description: "Implement A/B testing, landing page optimization, and CRO strategies.", duration: "Week 22-23" }
-                        ]
-                    },
-                    {
-                        title: "Advanced Strategies",
-                        description: "Implement advanced marketing strategies and automation.",
-                        topics: [
-                            { icon: "🤖", title: "Marketing Automation", description: "Master marketing automation tools and workflow optimization.", duration: "Week 24-26" },
-                            { icon: "👥", title: "Influencer Marketing", description: "Develop influencer partnership strategies and relationship management.", duration: "Week 26-28" },
-                            { icon: "📊", title: "Data-Driven Marketing", description: "Use data analytics for personalization and predictive marketing.", duration: "Week 28-30" },
-                            { icon: "🌍", title: "Global Marketing", description: "Develop international marketing strategies and localization.", duration: "Week 30-32" }
-                        ]
-                    },
-                    {
-                        title: "Leadership & Innovation",
-                        description: "Lead marketing teams and explore emerging marketing technologies.",
-                        topics: [
-                            { icon: "🚀", title: "Growth Marketing", description: "Implement growth hacking techniques and viral marketing strategies.", duration: "Week 33-35" },
-                            { icon: "🎯", title: "Marketing Technology", description: "Master marketing tech stack and marketing operations management.", duration: "Week 35-37" },
-                            { icon: "💼", title: "Marketing Leadership", description: "Lead marketing teams, manage budgets, and drive marketing strategy.", duration: "Week 37-39" },
-                            { icon: "🔮", title: "Future Trends", description: "Explore AI in marketing, voice search, and emerging digital channels.", duration: "Week 39-42" }
-                        ]
-                    }
-                ]
-            },
-            // Additional skills would follow the same pattern...
-            "Machine Learning": {
-                phases: [
-                    {
-                        title: "Python & Math Foundation",
-                        description: "Build the essential programming and mathematical foundation for ML.",
-                        topics: [
-                            { icon: "🐍", title: "Python for ML", description: "Master Python, NumPy, Pandas, and scientific computing libraries.", duration: "Week 1-3" },
-                            { icon: "📊", title: "Statistics & Probability", description: "Learn statistical inference, distributions, and probability theory.", duration: "Week 3-6" },
-                            { icon: "📈", title: "Linear Algebra", description: "Master vectors, matrices, and linear transformations for ML.", duration: "Week 6-8" },
-                            { icon: "🧮", title: "Calculus", description: "Understand derivatives, integrals, and optimization concepts.", duration: "Week 8-10" }
-                        ]
-                    },
-                    {
-                        title: "ML Algorithms & Models",
+                        title: "Machine Learning Core",
                         description: "Learn fundamental machine learning algorithms and techniques.",
                         topics: [
-                            { icon: "🎯", title: "Supervised Learning", description: "Master regression, classification, and ensemble methods.", duration: "Week 11-14" },
-                            { icon: "🔍", title: "Unsupervised Learning", description: "Learn clustering, dimensionality reduction, and association rules.", duration: "Week 14-17" },
-                            { icon: "📊", title: "Model Evaluation", description: "Understand cross-validation, metrics, and hyperparameter tuning.", duration: "Week 17-19" },
-                            { icon: "🔄", title: "Feature Engineering", description: "Master feature selection, extraction, and transformation.", duration: "Week 19-21" }
+                            { icon: "🎯", title: "Supervised Learning", description: "Master regression, classification, and ensemble learning algorithms.", duration: "Week 11-14" },
+                            { icon: "🔍", title: "Unsupervised Learning", description: "Learn clustering, dimensionality reduction, and association mining.", duration: "Week 14-17" },
+                            { icon: "📊", title: "Model Evaluation", description: "Understand cross-validation, metrics, and hyperparameter optimization.", duration: "Week 17-19" },
+                            { icon: "🔄", title: "Feature Engineering", description: "Master advanced feature selection and transformation techniques.", duration: "Week 19-21" }
                         ]
                     },
                     {
-                        title: "Deep Learning Fundamentals",
-                        description: "Dive into neural networks and deep learning architectures.",
+                        title: "Deep Learning & Neural Networks",
+                        description: "Dive into deep learning architectures and neural networks.",
                         topics: [
-                            { icon: "🧠", title: "Neural Networks", description: "Learn perceptrons, backpropagation, and network architectures.", duration: "Week 22-25" },
-                            { icon: "🖼️", title: "Computer Vision", description: "Master CNNs, image classification, and object detection.", duration: "Week 25-28" },
-                            { icon: "💬", title: "Natural Language Processing", description: "Learn RNNs, LSTMs, and transformer architectures.", duration: "Week 28-31" },
-                            { icon: "⚡", title: "Deep Learning Frameworks", description: "Master TensorFlow, PyTorch, and Keras for model building.", duration: "Week 31-33" }
+                            { icon: "🧠", title: "Neural Networks Fundamentals", description: "Learn perceptrons, backpropagation, and network architectures.", duration: "Week 22-25" },
+                            { icon: "🖼️", title: "Computer Vision", description: "Master CNNs, object detection, and image processing techniques.", duration: "Week 25-28" },
+                            { icon: "💬", title: "Natural Language Processing", description: "Learn RNNs, LSTMs, transformers, and language models.", duration: "Week 28-31" },
+                            { icon: "⚡", title: "Deep Learning Frameworks", description: "Master TensorFlow, PyTorch, and Keras for model development.", duration: "Week 31-33" }
                         ]
                     },
                     {
-                        title: "Advanced ML Topics",
-                        description: "Explore specialized machine learning domains and techniques.",
+                        title: "Advanced AI Techniques",
+                        description: "Explore cutting-edge AI technologies and applications.",
                         topics: [
                             { icon: "🤖", title: "Reinforcement Learning", description: "Learn Q-learning, policy gradients, and RL applications.", duration: "Week 34-36" },
-                            { icon: "📈", title: "Time Series Analysis", description: "Master forecasting, ARIMA, and sequence modeling.", duration: "Week 36-38" },
-                            { icon: "🔒", title: "ML Security", description: "Understand adversarial attacks, model robustness, and privacy.", duration: "Week 38-40" },
-                            { icon: "☁️", title: "ML Deployment", description: "Learn model serving, MLOps, and cloud deployment.", duration: "Week 40-42" }
+                            { icon: "🎯", title: "Generative AI", description: "Master GANs, VAEs, and generative model architectures.", duration: "Week 36-38" },
+                            { icon: "🔍", title: "Computer Vision Advanced", description: "Learn object detection, segmentation, and video analysis.", duration: "Week 38-40" },
+                            { icon: "💭", title: "NLP Advanced", description: "Master transformer architectures, BERT, and GPT models.", duration: "Week 40-42" }
                         ]
                     },
                     {
-                        title: "Specialization & Research",
-                        description: "Focus on advanced research areas and real-world applications.",
+                        title: "AI Deployment & Ethics",
+                        description: "Deploy AI systems and understand ethical considerations.",
                         topics: [
-                            { icon: "🎯", title: "ML Research Methods", description: "Learn research methodology and paper reading techniques.", duration: "Week 43-45" },
-                            { icon: "🏢", title: "Industry Applications", description: "Apply ML to healthcare, finance, retail, and other domains.", duration: "Week 45-47" },
-                            { icon: "🚀", title: "Advanced Architectures", description: "Explore GANs, autoencoders, and cutting-edge models.", duration: "Week 47-49" },
-                            { icon: "💼", title: "ML Project Management", description: "Lead ML projects and manage ML teams effectively.", duration: "Week 49-52" }
+                            { icon: "🚀", title: "Model Deployment", description: "Learn MLOps, model serving, and production deployment.", duration: "Week 43-45" },
+                            { icon: "🔒", title: "AI Ethics & Fairness", description: "Understand bias, fairness, and ethical AI development.", duration: "Week 45-47" },
+                            { icon: "☁️", title: "Cloud AI Platforms", description: "Master AWS SageMaker, Google AI, and Azure ML services.", duration: "Week 47-49" },
+                            { icon: "🎓", title: "Capstone Project", description: "Build and deploy a complete AI application from scratch.", duration: "Week 49-52" }
                         ]
                     }
                 ]
             },
-            "Cybersecurity": {
+            "DevOps": {
                 phases: [
                     {
-                        title: "Security Fundamentals",
-                        description: "Build foundational knowledge of cybersecurity concepts and principles.",
+                        title: "Linux & System Fundamentals",
+                        description: "Build strong foundation in Linux systems and command line operations.",
                         topics: [
-                            { icon: "🔒", title: "Security Concepts", description: "Learn CIA triad, risk management, and security frameworks.", duration: "Week 1-3" },
-                            { icon: "🌐", title: "Networking Fundamentals", description: "Master TCP/IP, network protocols, and network architecture.", duration: "Week 3-6" },
-                            { icon: "💻", title: "Operating Systems", description: "Understand Windows, Linux, and macOS security features.", duration: "Week 6-8" },
-                            { icon: "📚", title: "Security Policies", description: "Learn security governance, compliance, and policy development.", duration: "Week 8-10" }
+                            { icon: "🐧", title: "Linux Administration", description: "Master Linux commands, file systems, and system administration.", duration: "Week 1-3" },
+                            { icon: "💻", title: "Shell Scripting", description: "Learn Bash scripting, automation, and command-line tools.", duration: "Week 3-5" },
+                            { icon: "🌐", title: "Networking Fundamentals", description: "Understand TCP/IP, DNS, HTTP, and network protocols.", duration: "Week 5-7" },
+                            { icon: "🔧", title: "System Monitoring", description: "Learn system performance monitoring and troubleshooting.", duration: "Week 7-8" }
                         ]
                     },
                     {
-                        title: "Technical Security Skills",
-                        description: "Develop hands-on technical skills for security assessment and defense.",
+                        title: "Containerization & Orchestration",
+                        description: "Master container technologies and orchestration platforms.",
                         topics: [
-                            { icon: "🛡️", title: "Network Security", description: "Master firewalls, IDS/IPS, and network monitoring tools.", duration: "Week 11-14" },
-                            { icon: "🔍", title: "Vulnerability Assessment", description: "Learn vulnerability scanning and penetration testing basics.", duration: "Week 14-17" },
-                            { icon: "🔐", title: "Cryptography", description: "Understand encryption, hashing, and cryptographic protocols.", duration: "Week 17-19" },
-                            { icon: "👤", title: "Identity Management", description: "Master authentication, authorization, and access control.", duration: "Week 19-21" }
+                            { icon: "🐳", title: "Docker Fundamentals", description: "Learn Docker containers, images, and container management.", duration: "Week 9-11" },
+                            { icon: "⚙️", title: "Docker Advanced", description: "Master Docker Compose, networking, and security best practices.", duration: "Week 11-13" },
+                            { icon: "🚢", title: "Kubernetes Core", description: "Learn Kubernetes architecture, pods, services, and deployments.", duration: "Week 13-15" },
+                            { icon: "🔄", title: "Kubernetes Advanced", description: "Master Helm, operators, and advanced Kubernetes features.", duration: "Week 15-17" }
                         ]
                     },
                     {
-                        title: "Advanced Defense Techniques",
-                        description: "Learn advanced security controls and defensive strategies.",
+                        title: "CI/CD & Automation",
+                        description: "Implement continuous integration and deployment pipelines.",
                         topics: [
-                            { icon: "🛡️", title: "Security Operations", description: "Learn SOC operations, incident response, and threat hunting.", duration: "Week 22-25" },
-                            { icon: "☁️", title: "Cloud Security", description: "Master AWS, Azure, and GCP security best practices.", duration: "Week 25-28" },
-                            { icon: "📱", title: "Application Security", description: "Learn secure coding, SAST, DAST, and application testing.", duration: "Week 28-31" },
-                            { icon: "🏢", title: "Enterprise Security", description: "Understand enterprise security architecture and controls.", duration: "Week 31-33" }
+                            { icon: "🔄", title: "CI/CD Fundamentals", description: "Learn Jenkins, GitLab CI, and pipeline automation.", duration: "Week 18-20" },
+                            { icon: "⚡", title: "Infrastructure as Code", description: "Master Terraform, Ansible, and infrastructure automation.", duration: "Week 20-22" },
+                            { icon: "📦", title: "Artifact Management", description: "Learn artifact repositories and dependency management.", duration: "Week 22-24" },
+                            { icon: "🧪", title: "Testing & Quality", description: "Implement automated testing and quality gates in pipelines.", duration: "Week 24-26" }
                         ]
                     },
                     {
-                        title: "Offensive Security",
-                        description: "Develop ethical hacking and penetration testing skills.",
+                        title: "Cloud & Monitoring",
+                        description: "Deploy and monitor applications in cloud environments.",
                         topics: [
-                            { icon: "⚔️", title: "Penetration Testing", description: "Master ethical hacking methodologies and tools.", duration: "Week 34-36" },
-                            { icon: "🕵️", title: "Social Engineering", description: "Learn phishing, pretexting, and human factor exploitation.", duration: "Week 36-38" },
-                            { icon: "🔓", title: "Exploit Development", description: "Understand buffer overflows, shellcode, and exploit writing.", duration: "Week 38-40" },
-                            { icon: "🌐", title: "Web Application Hacking", description: "Master OWASP Top 10 and web app penetration testing.", duration: "Week 40-42" }
+                            { icon: "☁️", title: "Cloud Platforms", description: "Master AWS, Azure, or GCP services and architectures.", duration: "Week 27-29" },
+                            { icon: "📊", title: "Monitoring & Logging", description: "Learn Prometheus, Grafana, and centralized logging.", duration: "Week 29-31" },
+                            { icon: "🚨", title: "Alerting & Incident Response", description: "Implement alerting systems and incident management.", duration: "Week 31-33" },
+                            { icon: "🔒", title: "Security & Compliance", description: "Learn DevSecOps practices and security scanning.", duration: "Week 33-35" }
                         ]
                     },
                     {
-                        title: "Specialization & Leadership",
-                        description: "Focus on security leadership and advanced specializations.",
+                        title: "Advanced DevOps & SRE",
+                        description: "Master advanced DevOps practices and site reliability engineering.",
                         topics: [
-                            { icon: "🔮", title: "Threat Intelligence", description: "Learn threat analysis, intelligence gathering, and reporting.", duration: "Week 43-45" },
-                            { icon: "⚖️", title: "Digital Forensics", description: "Master forensic analysis, evidence handling, and investigation.", duration: "Week 45-47" },
-                            { icon: "🚀", title: "Security Leadership", description: "Lead security teams and develop security programs.", duration: "Week 47-49" },
-                            { icon: "🎯", title: "Emerging Threats", description: "Study AI security, IoT security, and future threat landscapes.", duration: "Week 49-52" }
-                        ]
-                    }
-                ]
-            },
-            "Cloud Computing": {
-                phases: [
-                    {
-                        title: "Cloud Fundamentals",
-                        description: "Understand cloud computing concepts and service models.",
-                        topics: [
-                            { icon: "☁️", title: "Cloud Concepts", description: "Learn IaaS, PaaS, SaaS, and cloud deployment models.", duration: "Week 1-3" },
-                            { icon: "🌐", title: "Networking Basics", description: "Master networking fundamentals and cloud networking concepts.", duration: "Week 3-5" },
-                            { icon: "💻", title: "Virtualization", description: "Understand virtualization technologies and container basics.", duration: "Week 5-7" },
-                            { icon: "📊", title: "Cloud Economics", description: "Learn cloud pricing models and cost optimization strategies.", duration: "Week 7-8" }
-                        ]
-                    },
-                    {
-                        title: "Core Cloud Services",
-                        description: "Master fundamental cloud services across major platforms.",
-                        topics: [
-                            { icon: "🖥️", title: "Compute Services", description: "Learn EC2, Lambda, Azure VMs, and compute options.", duration: "Week 9-11" },
-                            { icon: "💾", title: "Storage Services", description: "Master S3, EBS, Azure Blob Storage, and storage solutions.", duration: "Week 11-13" },
-                            { icon: "🌐", title: "Networking Services", description: "Understand VPC, load balancers, and cloud networking.", duration: "Week 13-15" },
-                            { icon: "🗄️", title: "Database Services", description: "Learn RDS, DynamoDB, Cosmos DB, and database options.", duration: "Week 15-17" }
-                        ]
-                    },
-                    {
-                        title: "Advanced Cloud Architecture",
-                        description: "Design scalable and resilient cloud architectures.",
-                        topics: [
-                            { icon: "🏗️", title: "Architecture Patterns", description: "Master well-architected frameworks and design patterns.", duration: "Week 18-20" },
-                            { icon: "⚡", title: "Scalability & Performance", description: "Learn auto-scaling, load balancing, and performance optimization.", duration: "Week 20-22" },
-                            { icon: "🛡️", title: "Cloud Security", description: "Master IAM, security groups, and cloud security best practices.", duration: "Week 22-24" },
-                            { icon: "🔧", title: "Infrastructure as Code", description: "Learn Terraform, CloudFormation, and infrastructure automation.", duration: "Week 24-26" }
-                        ]
-                    },
-                    {
-                        title: "DevOps & Automation",
-                        description: "Implement DevOps practices and automation in the cloud.",
-                        topics: [
-                            { icon: "🔄", title: "CI/CD Pipelines", description: "Master Jenkins, GitHub Actions, and deployment automation.", duration: "Week 27-29" },
-                            { icon: "🐳", title: "Containerization", description: "Learn Docker, Kubernetes, and container orchestration.", duration: "Week 29-32" },
-                            { icon: "📊", title: "Monitoring & Logging", description: "Implement CloudWatch, Azure Monitor, and observability.", duration: "Week 32-34" },
-                            { icon: "🚀", title: "Serverless Architecture", description: "Master serverless computing and event-driven architectures.", duration: "Week 34-36" }
-                        ]
-                    },
-                    {
-                        title: "Specialization & Enterprise",
-                        description: "Focus on advanced cloud topics and enterprise solutions.",
-                        topics: [
-                            { icon: "🏢", title: "Multi-Cloud Strategy", description: "Learn hybrid cloud and multi-cloud management.", duration: "Week 37-39" },
-                            { icon: "🔒", title: "Advanced Security", description: "Master cloud security architecture and compliance frameworks.", duration: "Week 39-41" },
-                            { icon: "📈", title: "Cost Optimization", description: "Implement advanced cost management and optimization strategies.", duration: "Week 41-43" },
-                            { icon: "🎯", title: "Cloud Migration", description: "Lead cloud migration projects and transformation initiatives.", duration: "Week 43-46" }
-                        ]
-                    }
-                ]
-            },
-            "Blockchain": {
-                phases: [
-                    {
-                        title: "Blockchain Fundamentals",
-                        description: "Understand blockchain technology and cryptocurrency basics.",
-                        topics: [
-                            { icon: "⛓️", title: "Blockchain Concepts", description: "Learn distributed ledger technology and consensus mechanisms.", duration: "Week 1-3" },
-                            { icon: "💰", title: "Cryptocurrency Basics", description: "Understand Bitcoin, Ethereum, and major cryptocurrencies.", duration: "Week 3-5" },
-                            { icon: "🔐", title: "Cryptography", description: "Master cryptographic fundamentals for blockchain security.", duration: "Week 5-7" },
-                            { icon: "🌐", title: "Decentralized Systems", description: "Learn P2P networks and distributed system principles.", duration: "Week 7-8" }
-                        ]
-                    },
-                    {
-                        title: "Smart Contract Development",
-                        description: "Learn to develop and deploy smart contracts on blockchain platforms.",
-                        topics: [
-                            { icon: "📝", title: "Solidity Programming", description: "Master Solidity language and smart contract development.", duration: "Week 9-11" },
-                            { icon: "🛠️", title: "Development Tools", description: "Learn Truffle, Hardhat, and blockchain development frameworks.", duration: "Week 11-13" },
-                            { icon: "🧪", title: "Testing & Deployment", description: "Master smart contract testing and mainnet deployment.", duration: "Week 13-15" },
-                            { icon: "🔒", title: "Security Best Practices", description: "Learn common vulnerabilities and security patterns.", duration: "Week 15-17" }
-                        ]
-                    },
-                    {
-                        title: "DApp Development",
-                        description: "Build decentralized applications with frontend integration.",
-                        topics: [
-                            { icon: "🌐", title: "Web3 Integration", description: "Learn Web3.js, Ethers.js, and blockchain interaction.", duration: "Week 18-20" },
-                            { icon: "🎨", title: "DApp Architecture", description: "Master decentralized application design patterns.", duration: "Week 20-22" },
-                            { icon: "💼", title: "Token Standards", description: "Understand ERC-20, ERC-721, and token implementation.", duration: "Week 22-24" },
-                            { icon: "🔄", title: "Oracle Integration", description: "Learn to integrate external data with blockchain oracles.", duration: "Week 24-26" }
-                        ]
-                    },
-                    {
-                        title: "Advanced Blockchain Topics",
-                        description: "Explore advanced blockchain concepts and scaling solutions.",
-                        topics: [
-                            { icon: "⚡", title: "Layer 2 Solutions", description: "Master rollups, sidechains, and scaling technologies.", duration: "Week 27-29" },
-                            { icon: "🏛️", title: "Governance & DAOs", description: "Learn decentralized governance and DAO structures.", duration: "Week 29-31" },
-                            { icon: "🔮", title: "DeFi Protocols", description: "Understand decentralized finance and protocol development.", duration: "Week 31-33" },
-                            { icon: "🎮", title: "NFTs & Gaming", description: "Master NFT development and blockchain gaming applications.", duration: "Week 33-35" }
-                        ]
-                    },
-                    {
-                        title: "Enterprise & Future Trends",
-                        description: "Focus on enterprise blockchain and emerging technologies.",
-                        topics: [
-                            { icon: "🏢", title: "Enterprise Blockchain", description: "Learn Hyperledger, Quorum, and enterprise solutions.", duration: "Week 36-38" },
-                            { icon: "🔍", title: "Blockchain Analysis", description: "Master blockchain analytics and forensic techniques.", duration: "Week 38-40" },
-                            { icon: "⚖️", title: "Regulatory Compliance", description: "Understand blockchain regulations and compliance requirements.", duration: "Week 40-42" },
-                            { icon: "🚀", title: "Future Technologies", description: "Explore Web3, Metaverse, and next-generation blockchain.", duration: "Week 42-44" }
-                        ]
-                    }
-                ]
-            },
-            "Game Development": {
-                phases: [
-                    {
-                        title: "Game Design Fundamentals",
-                        description: "Learn game design principles and development basics.",
-                        topics: [
-                            { icon: "🎮", title: "Game Design Theory", description: "Learn game mechanics, dynamics, and player psychology.", duration: "Week 1-3" },
-                            { icon: "📝", title: "Game Documentation", description: "Master game design documents and project planning.", duration: "Week 3-5" },
-                            { icon: "🎨", title: "Art & Asset Creation", description: "Learn 2D/3D asset creation and game art pipelines.", duration: "Week 5-7" },
-                            { icon: "💻", title: "Programming Basics", description: "Understand game programming fundamentals and patterns.", duration: "Week 7-8" }
-                        ]
-                    },
-                    {
-                        title: "Game Engine Mastery",
-                        description: "Master game engines and development tools.",
-                        topics: [
-                            { icon: "⚙️", title: "Unity Engine", description: "Learn Unity interface, components, and scripting.", duration: "Week 9-11" },
-                            { icon: "🔵", title: "Unreal Engine", description: "Master Unreal Engine and Blueprint visual scripting.", duration: "Week 11-13" },
-                            { icon: "🎯", title: "Game Physics", description: "Understand physics engines and collision detection.", duration: "Week 13-15" },
-                            { icon: "🎵", title: "Audio Integration", description: "Learn sound design and audio implementation.", duration: "Week 15-17" }
-                        ]
-                    },
-                    {
-                        title: "Core Development Skills",
-                        description: "Develop essential game development techniques.",
-                        topics: [
-                            { icon: "👤", title: "Character Systems", description: "Master character controllers, animation, and AI behavior.", duration: "Week 18-20" },
-                            { icon: "🌍", title: "Level Design", description: "Learn environment design, lighting, and world building.", duration: "Week 20-22" },
-                            { icon: "🔄", title: "Gameplay Systems", description: "Implement core gameplay loops and mechanics.", duration: "Week 22-24" },
-                            { icon: "📊", title: "UI/UX for Games", description: "Design intuitive game interfaces and HUD elements.", duration: "Week 24-26" }
-                        ]
-                    },
-                    {
-                        title: "Advanced Game Development",
-                        description: "Implement advanced features and optimization techniques.",
-                        topics: [
-                            { icon: "🕹️", title: "Multiplayer Systems", description: "Learn networking, matchmaking, and online features.", duration: "Week 27-29" },
-                            { icon: "⚡", title: "Performance Optimization", description: "Master profiling, optimization, and memory management.", duration: "Week 29-31" },
-                            { icon: "🔧", title: "Tools Development", description: "Create custom editor tools and pipeline automation.", duration: "Week 31-33" },
-                            { icon: "🧩", title: "Procedural Generation", description: "Implement procedural content generation algorithms.", duration: "Week 33-35" }
-                        ]
-                    },
-                    {
-                        title: "Production & Publishing",
-                        description: "Prepare games for release and manage development teams.",
-                        topics: [
-                            { icon: "🚀", title: "Game Production", description: "Learn project management and agile development for games.", duration: "Week 36-38" },
-                            { icon: "📱", title: "Platform Deployment", description: "Master deployment for PC, mobile, and console platforms.", duration: "Week 38-40" },
-                            { icon: "📈", title: "Game Analytics", description: "Implement analytics and player behavior tracking.", duration: "Week 40-42" },
-                            { icon: "💼", title: "Game Business", description: "Understand game monetization, marketing, and publishing.", duration: "Week 42-44" }
+                            { icon: "🏗️", title: "GitOps & Git workflows", description: "Implement GitOps practices and advanced Git workflows.", duration: "Week 36-38" },
+                            { icon: "⚡", title: "Performance Optimization", description: "Learn performance tuning and optimization techniques.", duration: "Week 38-40" },
+                            { icon: "🛡️", title: "Disaster Recovery", description: "Master backup strategies and disaster recovery planning.", duration: "Week 40-42" },
+                            { icon: "🎯", title: "SRE Practices", description: "Learn SRE principles, SLIs, SLOs, and error budgets.", duration: "Week 42-44" }
                         ]
                     }
                 ]
             }
+            // Additional skills can be added here...
         };
 
         // Generate stars
         function createStars() {
             const starsContainer = document.getElementById('starsContainer');
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 starsContainer.appendChild(star);
             }
         }
@@ -1719,6 +1569,12 @@
             const buttons = document.querySelectorAll('.level-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
+        }
+
+        // Skill selection from showcase
+        function selectSkill(skill) {
+            document.getElementById('skillInput').value = skill;
+            showPage('form');
         }
 
         // Form submission
@@ -1771,15 +1627,56 @@
             timeline.innerHTML = '';
 
             const skillData = roadmapData[skill];
-            if (!skillData) return;
+            if (!skillData) {
+                // Default roadmap if skill not found
+                timeline.innerHTML = `
+                    <div class="timeline-item">
+                        <div class="timeline-icon glass" style="background: linear-gradient(135deg, #6d67e4, #46c3db);">
+                            🎯
+                        </div>
+                        <div class="timeline-content glass-strong">
+                            <span class="phase-label">Coming Soon</span>
+                            <h3>Detailed Roadmap in Development</h3>
+                            <p>We're working on creating a comprehensive roadmap for ${skill}. In the meantime, here's a general learning path:</p>
+                            <div class="topics-list">
+                                <div class="topic-item">
+                                    <div class="topic-icon">📚</div>
+                                    <div class="topic-content">
+                                        <h4>Research Fundamentals</h4>
+                                        <p>Start with the basics and build a strong foundation in ${skill}.</p>
+                                        <span class="topic-duration">⏱️ Week 1-4</span>
+                                    </div>
+                                </div>
+                                <div class="topic-item">
+                                    <div class="topic-icon">🛠️</div>
+                                    <div class="topic-content">
+                                        <h4>Practical Application</h4>
+                                        <p>Apply your knowledge through projects and real-world scenarios.</p>
+                                        <span class="topic-duration">⏱️ Week 5-8</span>
+                                    </div>
+                                </div>
+                                <div class="topic-item">
+                                    <div class="topic-icon">🚀</div>
+                                    <div class="topic-content">
+                                        <h4>Advanced Topics</h4>
+                                        <p>Dive deeper into specialized areas of ${skill}.</p>
+                                        <span class="topic-duration">⏱️ Week 9-12</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
 
             const phaseIcons = ['🌱', '🚀', '⚡', '🎯', '🏆'];
             const phaseColors = [
-                'linear-gradient(135deg, #667eea, #764ba2)',
-                'linear-gradient(135deg, #f093fb, #f5576c)',
-                'linear-gradient(135deg, #4facfe, #00f2fe)',
-                'linear-gradient(135deg, #fa709a, #fee140)',
-                'linear-gradient(135deg, #a8edea, #fed6e3)'
+                'linear-gradient(135deg, #6d67e4, #46c3db)',
+                'linear-gradient(135deg, #e966a0, #ff6b6b)',
+                'linear-gradient(135deg, #46c3db, #6d67e4)',
+                'linear-gradient(135deg, #ff6b6b, #e966a0)',
+                'linear-gradient(135deg, #6d67e4, #e966a0)'
             ];
 
             skillData.phases.forEach((phase, index) => {
@@ -1882,7 +1779,7 @@
         }
 
         // Add hover effect to cards
-        document.querySelectorAll('.feature-card, .action-card').forEach(card => {
+        document.querySelectorAll('.feature-card, .action-card, .skill-card, .founder-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-10px) scale(1.02)';
             });
@@ -1898,7 +1795,7 @@
             const y = e.clientY / window.innerHeight;
 
             orbs.forEach((orb, index) => {
-                const speed = (index + 1) * 20;
+                const speed = (index + 1) * 15;
                 orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
             });
         });
@@ -1910,7 +1807,7 @@
                 setTimeout(() => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
-                }, index * 200);
+                }, index * 300);
             });
         });
     </script>
