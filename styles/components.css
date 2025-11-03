@@ -686,3 +686,112 @@ footer p {
     transform: translateY(-5px) scale(1.1);
     box-shadow: 0 10px 30px rgba(109, 103, 228, 0.5);
 }
+
+/* Expandable Weekly Content */
+.week-expandable {
+    margin-top: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.week-header {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.week-header:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.week-header h4 {
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.week-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.week-content.expanded {
+    max-height: 2000px;
+}
+
+.daily-tasks {
+    padding: 20px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.task-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #6d67e4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.task-checkbox.checked {
+    background: #6d67e4;
+}
+
+.task-checkbox.checked::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-content h5 {
+    color: var(--text-primary);
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.task-content p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.expand-icon {
+    transition: transform 0.3s ease;
+}
+
+.expand-icon.expanded {
+    transform: rotate(180deg);
+}
