@@ -1,0 +1,46 @@
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-icon {
+        left: 0;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .timeline-content {
+        margin-left: 70px;
+        padding: 25px;
+    }
+
+    .level-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-header h2 {
+        font-size: 36px;
+    }
+
+    .roadmap-header h2 {
+        font-size: 42px;
+    }
+}
