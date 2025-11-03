@@ -163,14 +163,22 @@ function generateRoadmapContent(skill, level, timeframe, goals) {
                 <h3>${phase.title}</h3>
                 <p>${phase.description}</p>
                 
-                <div class="topics-list">
-                    ${phase.topics.map(topic => `
-                        <div class="topic-item">
-                            <div class="topic-icon">${topic.icon}</div>
-                            <div class="topic-content">
-                                <h4>${topic.title}</h4>
-                                <p>${topic.description}</p>
-                                <span class="topic-duration">⏱️ ${topic.duration}</span>
+                <div class="week-expandable">
+                    ${phase.weeks.map(week => `
+                        <div class="week-header" onclick="toggleWeekContent(this)">
+                            <h4>${week.title}</h4>
+                            <div class="expand-icon">▼</div>
+                        </div>
+                        <div class="week-content">
+                            <div class="daily-tasks">
+                                ${week.tasks.map(task => `
+                                    <div class="task-item">
+                                        <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                                        <div class="task-content">
+                                            <h5>${task}</h5>
+                                        </div>
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
                     `).join('')}
@@ -219,6 +227,8 @@ console.log('🚀 LIAA Learning Roadmap App Loaded Successfully!');
 console.log('📊 App Features:');
 console.log('• 15+ Detailed Skill Roadmaps');
 console.log('• Interactive Progress Tracking');
+console.log('• Expandable Weekly Breakdowns');
+console.log('• PDF Download Functionality');
 console.log('• Responsive Design');
 console.log('• Beautiful Animations');
 console.log('• Founder: Lavika Panwar');
