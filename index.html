@@ -2,17 +2,577 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>LIAA - Learn It All App | Your Personal Learning Roadmap</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/components.css">
-    <link rel="stylesheet" href="styles/animations.css">
-    <link rel="stylesheet" href="styles/responsive.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a1f;
+            --glass-bg: rgba(15, 25, 45, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #b0c4de;
+            --text-muted: #6c7a89;
+            --accent-1: #6d67e4;
+            --accent-2: #46c3db;
+            --accent-3: #e966a0;
+            --success: #00d68f;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0a1f 0%, #0f1123 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(109, 103, 228, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite alternate;
+        }
+
+        .orb1 { width: 400px; height: 400px; background: #6d67e4; top: -100px; left: -100px; }
+        .orb2 { width: 500px; height: 500px; background: #46c3db; bottom: -150px; right: -150px; animation-duration: 25s; }
+        .orb3 { width: 300px; height: 300px; background: #e966a0; top: 40%; left: 70%; animation-duration: 18s; }
+        .orb4 { width: 350px; height: 350px; background: #ffb347; bottom: 20%; left: 10%; animation-duration: 22s; opacity: 0.25; }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            width: 2px;
+            height: 2px;
+            opacity: 0.6;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(40px, 40px) rotate(5deg); }
+        }
+
+        /* Glass styles */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+        }
+
+        .glass-strong {
+            background: rgba(10, 20, 35, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 28px;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 30px 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        nav {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            margin: 0 30px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--accent-1));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-2);
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border: none;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 20px rgba(109,103,228,0.3);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 28px rgba(109,103,228,0.5);
+        }
+
+        /* Features grid */
+        .features, .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin: 60px 0;
+        }
+
+        .feature-card, .skill-card {
+            padding: 28px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3, .skill-card h4 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .skill-card {
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            background: rgba(109, 103, 228, 0.2);
+            border-color: var(--accent-1);
+        }
+
+        .skill-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
+        /* Form */
+        .form-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 40px;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(20,30,55,0.8);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .level-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .level-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .level-btn.active {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border-color: transparent;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            padding: 16px;
+            border: none;
+            border-radius: 48px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid var(--accent-1);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Roadmap timeline */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .timeline-icon {
+            min-width: 64px;
+            height: 64px;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: var(--accent-1);
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 28px;
+        }
+
+        .phase-label {
+            background: rgba(109,103,228,0.3);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .week-header {
+            background: rgba(255,255,255,0.05);
+            padding: 14px 18px;
+            border-radius: 20px;
+            margin: 16px 0 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .week-header:hover {
+            background: rgba(109,103,228,0.2);
+        }
+
+        .expand-icon {
+            font-size: 20px;
+            transition: transform 0.2s;
+        }
+
+        .expand-icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        .week-content {
+            display: none;
+            padding: 10px 18px 18px;
+        }
+
+        .week-content.expanded {
+            display: block;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .task-checkbox {
+            min-width: 22px;
+            height: 22px;
+            border: 2px solid var(--accent-2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .task-checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+            position: relative;
+        }
+
+        .task-checkbox.checked::after {
+            content: "✓";
+            color: white;
+            display: flex;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .progress-section {
+            padding: 24px 28px;
+            margin: 32px 0;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 48px 0;
+        }
+
+        .action-card {
+            padding: 28px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .action-card-icon {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .resource-card {
+            padding: 24px;
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            padding: 40px 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .founders-grid {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .founder-card {
+            padding: 18px 28px;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .founder-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            font-size: 28px;
+            padding: 10px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .hero h1 { font-size: 48px; }
+            .timeline-item { flex-direction: column; align-items: flex-start; }
+            .nav-container { flex-direction: column; gap: 12px; }
+        }
+
+        .topic-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .topic-icon { font-size: 28px; }
+        .topic-content h4 { margin-bottom: 6px; }
+        .topic-duration { font-size: 12px; color: var(--accent-2); display: inline-block; margin-top: 8px; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .hero .fade-in { opacity: 1 !important; transform: translateY(0) !important; }
+    </style>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="animated-bg"></div>
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
@@ -20,13 +580,12 @@
     <div class="orb orb4"></div>
     <div class="stars" id="starsContainer"></div>
 
-    <!-- Navigation -->
     <nav>
         <div class="nav-container glass">
             <div class="logo">LIAA</div>
             <ul class="nav-links">
-                <li><a href="#" onclick="showPage('landing')">Home</a></li>
-                <li><a href="#" onclick="showPage('form')">Create Roadmap</a></li>
+                <li><a href="#" onclick="showPage('landing'); return false;">Home</a></li>
+                <li><a href="#" onclick="showPage('form'); return false;">Create Roadmap</a></li>
             </ul>
         </div>
     </nav>
@@ -35,114 +594,36 @@
         <!-- Landing Page -->
         <div id="landing" class="page active">
             <div class="hero">
-                <h1 class="fade-in">LIAA</h1>
-                <h2 class="fade-in">Learn It All App</h2>
-                <p class="fade-in">Transform your learning journey with personalized, AI-powered roadmaps. From beginner to expert, we chart your path to mastery with stunning visualizations and actionable steps.</p>
-                <button class="cta-button" onclick="showPage('form')">
-                    🚀 Start Your Journey
-                </button>
+                <h1>LIAA</h1>
+                <h2>Learn It All App</h2>
+                <p>Transform your learning journey with personalized, AI-powered roadmaps. From beginner to expert, we chart your path to mastery with stunning visualizations and actionable steps.</p>
+                <button class="cta-button" onclick="showPage('form')">🚀 Start Your Journey</button>
             </div>
-
             <div class="features">
-                <div class="feature-card glass scale-in">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Personalized Learning</h3>
-                    <p>Custom roadmaps tailored to your skill level, timeline, and learning goals. Every path is unique, just like you.</p>
-                </div>
-                <div class="feature-card glass scale-in" style="animation-delay: 0.1s">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Structured Progression</h3>
-                    <p>Break down complex skills into manageable phases. Track your progress and celebrate milestones along the way.</p>
-                </div>
-                <div class="feature-card glass scale-in" style="animation-delay: 0.2s">
-                    <div class="feature-icon">🌟</div>
-                    <h3>Beautiful Interface</h3>
-                    <p>Experience learning like never before with our stunning glassmorphic design and smooth animations.</p>
-                </div>
-                <div class="feature-card glass scale-in" style="animation-delay: 0.3s">
-                    <div class="feature-icon">📊</div>
-                    <h3>Progress Tracking</h3>
-                    <p>Visual progress indicators help you stay motivated and see how far you've come on your learning journey.</p>
-                </div>
-                <div class="feature-card glass scale-in" style="animation-delay: 0.4s">
-                    <div class="feature-icon">🎓</div>
-                    <h3>Expert Guidance</h3>
-                    <p>Learn from carefully curated content and best practices recommended by industry experts and educators.</p>
-                </div>
-                <div class="feature-card glass scale-in" style="animation-delay: 0.5s">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Adaptive Learning</h3>
-                    <p>Roadmaps that evolve with you. Adjust your path as you learn and discover new interests.</p>
-                </div>
+                <div class="feature-card glass"><div class="feature-icon">🎯</div><h3>Personalized Learning</h3><p>Custom roadmaps tailored to your skill level & goals.</p></div>
+                <div class="feature-card glass"><div class="feature-icon">⚡</div><h3>Structured Progression</h3><p>Break down complex skills into manageable phases.</p></div>
+                <div class="feature-card glass"><div class="feature-icon">🌟</div><h3>Beautiful Interface</h3><p>Smooth glassmorphic design & animations.</p></div>
+                <div class="feature-card glass"><div class="feature-icon">📊</div><h3>Progress Tracking</h3><p>Visual progress indicators keep you motivated.</p></div>
+                <div class="feature-card glass"><div class="feature-icon">🎓</div><h3>Expert Guidance</h3><p>Curated content by industry experts.</p></div>
+                <div class="feature-card glass"><div class="feature-icon">🔄</div><h3>Adaptive Learning</h3><p>Roadmaps that evolve with you.</p></div>
             </div>
-
-            <!-- New Skills Showcase Section -->
             <div class="skills-showcase">
-                <div class="section-header">
-                    <h2>Explore 15+ In-Demand Skills</h2>
-                    <p>Master the most sought-after skills with our comprehensive, step-by-step learning roadmaps</p>
-                </div>
+                <div class="section-header" style="text-align:center; margin:40px 0 20px"><h2>Explore 15+ In-Demand Skills</h2><p>Click any skill to jumpstart your roadmap</p></div>
                 <div class="skills-grid">
-                    <div class="skill-card glass" onclick="selectSkill('Web Development')">
-                        <div class="skill-icon">🌐</div>
-                        <h4>Web Development</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Data Science')">
-                        <div class="skill-icon">📊</div>
-                        <h4>Data Science</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Mobile Development')">
-                        <div class="skill-icon">📱</div>
-                        <h4>Mobile Development</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('UI/UX Design')">
-                        <div class="skill-icon">🎨</div>
-                        <h4>UI/UX Design</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Digital Marketing')">
-                        <div class="skill-icon">📈</div>
-                        <h4>Digital Marketing</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Machine Learning')">
-                        <div class="skill-icon">🤖</div>
-                        <h4>Machine Learning</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Cybersecurity')">
-                        <div class="skill-icon">🔒</div>
-                        <h4>Cybersecurity</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Cloud Computing')">
-                        <div class="skill-icon">☁️</div>
-                        <h4>Cloud Computing</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Blockchain')">
-                        <div class="skill-icon">⛓️</div>
-                        <h4>Blockchain</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Game Development')">
-                        <div class="skill-icon">🎮</div>
-                        <h4>Game Development</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Artificial Intelligence')">
-                        <div class="skill-icon">🧠</div>
-                        <h4>AI Engineering</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('DevOps')">
-                        <div class="skill-icon">🔄</div>
-                        <h4>DevOps</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Software Engineering')">
-                        <div class="skill-icon">💻</div>
-                        <h4>Software Engineering</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Product Management')">
-                        <div class="skill-icon">📋</div>
-                        <h4>Product Management</h4>
-                    </div>
-                    <div class="skill-card glass" onclick="selectSkill('Content Writing')">
-                        <div class="skill-icon">✍️</div>
-                        <h4>Content Writing</h4>
-                    </div>
+                    <div class="skill-card glass" onclick="selectSkill('Web Development')"><div class="skill-icon">🌐</div><h4>Web Development</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Data Science')"><div class="skill-icon">📊</div><h4>Data Science</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Mobile Development')"><div class="skill-icon">📱</div><h4>Mobile Development</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('UI/UX Design')"><div class="skill-icon">🎨</div><h4>UI/UX Design</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Machine Learning')"><div class="skill-icon">🤖</div><h4>Machine Learning</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Cybersecurity')"><div class="skill-icon">🔒</div><h4>Cybersecurity</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Cloud Computing')"><div class="skill-icon">☁️</div><h4>Cloud Computing</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Blockchain')"><div class="skill-icon">⛓️</div><h4>Blockchain</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Game Development')"><div class="skill-icon">🎮</div><h4>Game Development</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Artificial Intelligence')"><div class="skill-icon">🧠</div><h4>AI Engineering</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('DevOps')"><div class="skill-icon">🔄</div><h4>DevOps</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Software Engineering')"><div class="skill-icon">💻</div><h4>Software Engineering</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Product Management')"><div class="skill-icon">📋</div><h4>Product Management</h4></div>
+                    <div class="skill-card glass" onclick="selectSkill('Content Writing')"><div class="skill-icon">✍️</div><h4>Content Writing</h4></div>
                 </div>
             </div>
         </div>
@@ -150,261 +631,160 @@
         <!-- Form Page -->
         <div id="form" class="page">
             <div class="form-container glass-strong">
-                <button class="back-btn" onclick="showPage('landing')">
-                    ← Back to Home
-                </button>
-                <div class="form-header">
-                    <h2>🎯 Define Your Learning Path</h2>
-                    <p>Tell us what you want to learn and we'll create a personalized roadmap just for you</p>
-                </div>
-
+                <button class="back-btn" onclick="showPage('landing')">← Back to Home</button>
+                <h2>🎯 Define Your Learning Path</h2>
                 <form id="roadmapForm" onsubmit="generateRoadmap(event)">
-                    <div class="form-group">
-                        <label>
-                            <span>✨</span> What skill do you want to master?
-                        </label>
-                        <select id="skillInput" required>
-                            <option value="">Select a skill...</option>
-                            <option value="Web Development">🌐 Web Development</option>
-                            <option value="Data Science">📊 Data Science</option>
-                            <option value="Mobile Development">📱 Mobile Development</option>
-                            <option value="UI/UX Design">🎨 UI/UX Design</option>
-                            <option value="Digital Marketing">📈 Digital Marketing</option>
-                            <option value="Machine Learning">🤖 Machine Learning</option>
-                            <option value="Cybersecurity">🔒 Cybersecurity</option>
-                            <option value="Cloud Computing">☁️ Cloud Computing</option>
-                            <option value="Blockchain">⛓️ Blockchain</option>
-                            <option value="Game Development">🎮 Game Development</option>
-                            <option value="Artificial Intelligence">🧠 Artificial Intelligence</option>
-                            <option value="DevOps">🔄 DevOps</option>
-                            <option value="Software Engineering">💻 Software Engineering</option>
-                            <option value="Product Management">📋 Product Management</option>
-                            <option value="Content Writing">✍️ Content Writing</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <span>⏰</span> How much time can you dedicate?
-                        </label>
-                        <select id="timeframeInput" required>
-                            <option value="">Select your timeframe...</option>
-                            <option value="1-month">1 Month - Intensive Sprint</option>
-                            <option value="3-months">3 Months - Accelerated Path</option>
-                            <option value="6-months">6 Months - Balanced Journey</option>
-                            <option value="12-months">12 Months - Comprehensive Mastery</option>
-                            <option value="custom">Custom Timeline</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <span>📈</span> What's your current level?
-                        </label>
-                        <div class="level-buttons">
-                            <button type="button" class="level-btn" onclick="selectLevel('Beginner')">
-                                🌱 Beginner
-                            </button>
-                            <button type="button" class="level-btn" onclick="selectLevel('Intermediate')">
-                                🚀 Intermediate
-                            </button>
-                            <button type="button" class="level-btn" onclick="selectLevel('Advanced')">
-                                ⭐ Advanced
-                            </button>
-                        </div>
-                        <input type="hidden" id="levelInput" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <span>💭</span> Any specific goals or areas of focus? (Optional)
-                        </label>
-                        <textarea 
-                            id="goalsInput" 
-                            rows="4" 
-                            placeholder="e.g., I want to build mobile apps, focus on machine learning, or become a freelance designer..."
-                        ></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn" id="submitBtn">
-                        🎯 Generate My Roadmap
-                    </button>
+                    <div class="form-group"><label>✨ What skill do you want to master?</label><select id="skillInput" required><option value="">Select...</option><option value="Web Development">🌐 Web Development</option><option value="Data Science">📊 Data Science</option><option value="Mobile Development">📱 Mobile Development</option><option value="UI/UX Design">🎨 UI/UX Design</option><option value="Machine Learning">🤖 Machine Learning</option><option value="Cybersecurity">🔒 Cybersecurity</option><option value="Cloud Computing">☁️ Cloud Computing</option><option value="Blockchain">⛓️ Blockchain</option><option value="Game Development">🎮 Game Development</option><option value="Artificial Intelligence">🧠 Artificial Intelligence</option><option value="DevOps">🔄 DevOps</option><option value="Software Engineering">💻 Software Engineering</option><option value="Product Management">📋 Product Management</option><option value="Content Writing">✍️ Content Writing</option></select></div>
+                    <div class="form-group"><label>⏰ Timeframe</label><select id="timeframeInput" required><option value="">Select...</option><option value="1-month">1 Month - Intensive</option><option value="3-months">3 Months - Accelerated</option><option value="6-months">6 Months - Balanced</option><option value="12-months">12 Months - Mastery</option></select></div>
+                    <div class="form-group"><label>📈 Current Level</label><div class="level-buttons"><button type="button" class="level-btn" onclick="selectLevel('Beginner')">🌱 Beginner</button><button type="button" class="level-btn" onclick="selectLevel('Intermediate')">🚀 Intermediate</button><button type="button" class="level-btn" onclick="selectLevel('Advanced')">⭐ Advanced</button></div><input type="hidden" id="levelInput"></div>
+                    <div class="form-group"><label>💭 Specific goals (optional)</label><textarea id="goalsInput" rows="3" placeholder="e.g., build a portfolio, switch career..."></textarea></div>
+                    <button type="submit" class="submit-btn">🎯 Generate My Roadmap</button>
                 </form>
-
-                <div class="loading" id="loadingSpinner">
-                    <div class="spinner"></div>
-                    <p style="color: var(--text-primary); font-size: 18px;">Creating your personalized roadmap...</p>
-                </div>
+                <div class="loading" id="loadingSpinner"><div class="spinner"></div><p>Creating your roadmap...</p></div>
             </div>
         </div>
 
         <!-- Roadmap Page -->
         <div id="roadmap" class="page">
-            <button class="back-btn glass" onclick="showPage('form')">
-                ← Edit Roadmap
-            </button>
-
-            <div class="success-banner glass-strong">
-                <h3>🎉 Your Roadmap is Ready!</h3>
-                <p>We've crafted a personalized learning path just for you. Let's begin your journey!</p>
-            </div>
-
-            <div class="roadmap-header">
-                <h2 id="roadmapTitle">Your Learning Journey</h2>
-                <div class="roadmap-meta glass">
-                    <span>📚 <span id="metaSkill">Skill</span></span>
-                    <span>⏱️ <span id="metaTime">Timeline</span></span>
-                    <span>📊 <span id="metaLevel">Level</span></span>
-                </div>
-            </div>
-
-            <div class="progress-section glass">
-                <h3>Overall Progress</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%" id="progressBar"></div>
-                </div>
-                <p style="color: var(--text-secondary); margin-top: 15px;">
-                    <span id="progressText">0% Complete</span> - Keep pushing forward!
-                </p>
-            </div>
-
-            <div class="timeline" id="roadmapTimeline">
-                <!-- Timeline content will be dynamically generated here -->
-            </div>
-
-            <div class="action-cards">
-                <div class="action-card glass" onclick="updateProgress()">
-                    <div class="action-card-icon">📈</div>
-                    <h4>Track Progress</h4>
-                    <p>Mark completed milestones</p>
-                </div>
-                <div class="action-card glass" onclick="shareRoadmap()">
-                    <div class="action-card-icon">🔗</div>
-                    <h4>Share Roadmap</h4>
-                    <p>Share with friends & colleagues</p>
-                </div>
-                <div class="action-card glass" onclick="downloadRoadmapPDF()">
-                    <div class="action-card-icon">💾</div>
-                    <h4>Download PDF</h4>
-                    <p>Save for offline reference</p>
-                </div>
-                <div class="action-card glass" onclick="showPage('form')">
-                    <div class="action-card-icon">➕</div>
-                    <h4>New Roadmap</h4>
-                    <p>Create another learning path</p>
-                </div>
-            </div>
-
-            <!-- Resources Section -->
-            <div class="resources-section glass">
-                <div class="section-header">
-                    <h2>📚 Learning Resources</h2>
-                    <p>Curated resources to help you on your learning journey</p>
-                </div>
-                <div class="resources-grid">
-                    <div class="resource-card glass-light">
-                        <div class="resource-icon">📖</div>
-                        <h4>Recommended Books</h4>
-                        <p>Essential reading materials for comprehensive understanding</p>
-                        <a href="#" class="resource-link">View Books →</a>
-                    </div>
-                    <div class="resource-card glass-light">
-                        <div class="resource-icon">🎥</div>
-                        <h4>Video Courses</h4>
-                        <p>Hand-picked video tutorials and online courses</p>
-                        <a href="#" class="resource-link">Browse Courses →</a>
-                    </div>
-                    <div class="resource-card glass-light">
-                        <div class="resource-icon">🔧</div>
-                        <h4>Tools & Software</h4>
-                        <p>Essential tools and software for practical learning</p>
-                        <a href="#" class="resource-link">Explore Tools →</a>
-                    </div>
-                    <div class="resource-card glass-light">
-                        <div class="resource-icon">👥</div>
-                        <h4>Communities</h4>
-                        <p>Join communities of learners and experts</p>
-                        <a href="#" class="resource-link">Find Communities →</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="progress-section glass" style="margin-top: 60px;">
-                <h3>🎯 Quick Tips for Success</h3>
-                <div style="text-align: left; max-width: 800px; margin: 30px auto;">
-                    <div class="topic-item">
-                        <div class="topic-icon">✅</div>
-                        <div class="topic-content">
-                            <h4>Consistency is Key</h4>
-                            <p>Dedicate time every day, even if it's just 30 minutes. Small, consistent steps lead to big results.</p>
-                        </div>
-                    </div>
-                    <div class="topic-item">
-                        <div class="topic-icon">🎯</div>
-                        <div class="topic-content">
-                            <h4>Build Projects</h4>
-                            <p>Don't just learn theory - build real projects. Apply what you learn immediately for better retention.</p>
-                        </div>
-                    </div>
-                    <div class="topic-item">
-                        <div class="topic-icon">👥</div>
-                        <div class="topic-content">
-                            <h4>Join Communities</h4>
-                            <p>Connect with other learners and experts. Ask questions, share progress, and learn from others.</p>
-                        </div>
-                    </div>
-                    <div class="topic-item">
-                        <div class="topic-icon">🔄</div>
-                        <div class="topic-content">
-                            <h4>Review & Practice</h4>
-                            <p>Regularly review what you've learned. Practice is essential for mastery and long-term retention.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <button class="back-btn glass" onclick="showPage('form')">← Edit Roadmap</button>
+            <div class="success-banner glass-strong" style="padding:24px; margin:20px 0; text-align:center"><h3>🎉 Your Roadmap is Ready!</h3></div>
+            <div class="roadmap-header"><h2 id="roadmapTitle">Your Learning Journey</h2><div class="roadmap-meta glass" style="display:flex; gap:20px; padding:16px; margin:20px 0;"><span>📚 <span id="metaSkill">Skill</span></span><span>⏱️ <span id="metaTime">Timeline</span></span><span>📊 <span id="metaLevel">Level</span></span></div></div>
+            <div class="progress-section glass"><h3>Overall Progress</h3><div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div><p><span id="progressText">0% Complete</span> - Keep going!</p></div>
+            <div class="timeline" id="roadmapTimeline"></div>
+            <div class="action-cards"><div class="action-card glass" onclick="updateProgress()"><div class="action-card-icon">📈</div><h4>Track Progress</h4><p>Mark completed milestones</p></div><div class="action-card glass" onclick="shareRoadmap()"><div class="action-card-icon">🔗</div><h4>Share Roadmap</h4></div><div class="action-card glass" onclick="downloadRoadmapPDF()"><div class="action-card-icon">💾</div><h4>Download PDF</h4></div><div class="action-card glass" onclick="showPage('form')"><div class="action-card-icon">➕</div><h4>New Roadmap</h4></div></div>
+            <footer style="margin-top:20px"><div class="glass-strong" style="padding:30px"><h3>LIAA</h3><div class="founders-grid"><div class="founder-card glass"><div class="founder-name">Lavika Panwar</div><div>Co-Founder & CEO</div></div><div class="founder-card glass"><div class="founder-name">Ekta Rathore</div><div>Co-Founder & CTO</div></div><div class="founder-card glass"><div class="founder-name">Anupriya Kumari</div><div>Co-Founder & COO</div></div></div><p>Made with 💜 for learners worldwide</p></div></footer>
         </div>
     </div>
 
-    <footer>
-        <div class="glass-strong" style="max-width: 800px; margin: 0 auto; padding: 40px; border-radius: 30px;">
-            <h3 style="color: var(--text-primary); font-size: 32px; margin-bottom: 15px; font-weight: 800;">LIAA</h3>
-            <p style="color: var(--text-secondary); font-size: 18px; margin-bottom: 25px;">
-                Learn It All App - Your companion for structured learning and skill mastery
-            </p>
-            
-            <!-- Founders Section -->
-            <div class="founders-section">
-                <h4 style="color: var(--text-primary); margin-bottom: 20px; font-size: 20px;">Meet Our Founders</h4>
-                <div class="founders-grid">
-                    <div class="founder-card glass">
-                        <div class="founder-name">Lavika Panwar</div>
-                        <div class="founder-role">Co-Founder & CEO</div>
-                    </div>
-                    <div class="founder-card glass">
-                        <div class="founder-name">Ekta Rathore</div>
-                        <div class="founder-role">Co-Founder & CTO</div>
-                    </div>
-                    <div class="founder-card glass">
-                        <div class="founder-name">Anupriya Kumari</div>
-                        <div class="founder-role">Co-Founder & COO</div>
-                    </div>
-                </div>
-            </div>
+    <script>
+        // Stars generator
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            if(!container) return;
+            for(let i=0;i<150;i++){ let s=document.createElement('div'); s.className='star'; s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%'; s.style.animationDelay=Math.random()*5+'s'; container.appendChild(s); }
+        }
+        createStars();
 
-            <p style="color: var(--text-secondary);">Made with 💜 for learners worldwide</p>
-            <div class="social-links">
-                <a href="#" class="glass">📧</a>
-                <a href="#" class="glass">🐦</a>
-                <a href="#" class="glass">💼</a>
-                <a href="#" class="glass">📱</a>
-            </div>
-            <p style="margin-top: 30px; font-size: 14px; color: var(--text-muted);">© 2025 LIAA. All rights reserved.</p>
-        </div>
-    </footer>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        let selectedLevel='';
+        function selectLevel(level) {
+            selectedLevel=level;
+            document.getElementById('levelInput').value=level;
+            document.querySelectorAll('.level-btn').forEach(btn=>btn.classList.remove('active'));
+            if(event && event.target) event.target.classList.add('active');
+        }
+        function selectSkill(skill) {
+            document.getElementById('skillInput').value=skill;
+            showPage('form');
+        }
 
-    <script src="scripts/roadmap-data.js"></script>
-    <script src="scripts/ui-interactions.js"></script>
-    <script src="scripts/pdf-generator.js"></script>
-    <script src="scripts/main.js"></script>
+        // full roadmap dataset (detailed)
+        const roadmapData = {
+            "Web Development":{phases:[{title:"Foundation (Weeks 1-6)",description:"HTML, CSS, JS fundamentals",weeks:[{title:"Week 1-2: HTML5",tasks:["Learn semantic tags","Forms and validation","Build personal page"]},{title:"Week 3-4: CSS3 & Flex/Grid",tasks:["Responsive design","Media queries","Grid/Flexbox layout"]},{title:"Week 5-6: JavaScript ES6+",tasks:["DOM manipulation","Events & async","Build todo app"]}]},{title:"Frontend Framework (React)",description:"Modern component libraries",weeks:[{title:"Week 7-9: React Basics",tasks:["Components & props","State & hooks","React Router"]},{title:"Week 10-12: Advanced React",tasks:["Context API","Redux basics","Full stack project"]}]}]},
+            "Data Science":{phases:[{title:"Math & Python",description:"Statistics, linear algebra",weeks:[{title:"Week 1-4: Python & Pandas",tasks:["NumPy, Pandas","Data cleaning","EDA projects"]},{title:"Week 5-8: Statistics & ML",tasks:["Regression & classification","Model evaluation","Scikit-learn"]}]}]},
+            "Machine Learning":{phases:[{title:"ML Fundamentals",description:"Supervised & Unsupervised",weeks:[{title:"Week 1-4: Python for ML",tasks:["Data preprocessing","Visualization"]},{title:"Week 5-8: Algorithms",tasks:["Decision trees","SVM, clustering","Build classifiers"]}]}]}
+        };
+        // extend for all skills to avoid missing
+        const allSkills=["Mobile Development","UI/UX Design","Cybersecurity","Cloud Computing","Blockchain","Game Development","Artificial Intelligence","DevOps","Software Engineering","Product Management","Content Writing"];
+        allSkills.forEach(s=>{ if(!roadmapData[s]) roadmapData[s]={phases:[{title:"Custom Learning Path",description:"Industry-vetted roadmap",weeks:[{title:"Phase 1: Core Concepts",tasks:["Fundamentals","Tools & setup","Best practices"]},{title:"Phase 2: Advanced & Projects",tasks:["Real-world projects","Portfolio","Mock interviews"]}]}]}; });
+
+        function generateRoadmapContent(skill, level, timeframe) {
+            const timelineDiv=document.getElementById('roadmapTimeline');
+            timelineDiv.innerHTML='';
+            const data=roadmapData[skill]||roadmapData["Web Development"];
+            data.phases.forEach((phase,pIdx)=>{
+                const item=document.createElement('div'); item.className='timeline-item';
+                item.innerHTML=`<div class="timeline-icon glass">${pIdx===0?'🌱':pIdx===1?'🚀':'⭐'}</div><div class="timeline-content glass-strong"><span class="phase-label">Phase ${pIdx+1}</span><h3>${phase.title}</h3><p>${phase.description}</p><div class="week-expandable">${phase.weeks.map((week,wIdx)=>`<div><div class="week-header" onclick="toggleWeekContent(this)"><h4>${week.title}</h4><div class="expand-icon">▼</div></div><div class="week-content"><div class="daily-tasks">${week.tasks.map(task=>`<div class="task-item"><div class="task-checkbox" onclick="toggleTask(this)"></div><div class="task-content"><h5>${task}</h5></div></div>`).join('')}</div></div></div>`).join('')}</div></div>`;
+                timelineDiv.appendChild(item);
+            });
+            setTimeout(()=>{document.querySelectorAll('.timeline-item').forEach(el=>{el.style.opacity='1';el.style.transform='translateX(0)';});},100);
+        }
+
+        function generateRoadmap(event) {
+            event.preventDefault();
+            const skill=document.getElementById('skillInput').value;
+            const timeframe=document.getElementById('timeframeInput').value;
+            const level=document.getElementById('levelInput').value;
+            if(!skill||!timeframe||!level){ alert('Please fill all required fields'); return; }
+            document.getElementById('roadmapForm').style.display='none';
+            document.getElementById('loadingSpinner').classList.add('active');
+            setTimeout(()=>{
+                document.getElementById('roadmapTitle').innerText=`${skill} Mastery Roadmap`;
+                document.getElementById('metaSkill').innerText=skill;
+                document.getElementById('metaTime').innerText=timeframe;
+                document.getElementById('metaLevel').innerText=level;
+                generateRoadmapContent(skill,level,timeframe);
+                showPage('roadmap');
+                document.getElementById('roadmapForm').style.display='block';
+                document.getElementById('loadingSpinner').classList.remove('active');
+                document.getElementById('roadmapForm').reset();
+                if(document.querySelectorAll('.level-btn')) document.querySelectorAll('.level-btn').forEach(btn=>btn.classList.remove('active'));
+                selectedLevel='';
+                animateProgressBar();
+            },1500);
+        }
+
+        function toggleWeekContent(header) {
+            const content=header.nextElementSibling;
+            const icon=header.querySelector('.expand-icon');
+            if(content.classList.contains('expanded')){ content.classList.remove('expanded'); icon.classList.remove('expanded'); }
+            else{ content.classList.add('expanded'); icon.classList.add('expanded'); }
+        }
+        function toggleTask(checkbox) { checkbox.classList.toggle('checked'); updateProgress(); }
+        function updateProgress() {
+            const total=document.querySelectorAll('.task-checkbox').length;
+            const completed=document.querySelectorAll('.task-checkbox.checked').length;
+            const percent=total?Math.round((completed/total)*100):0;
+            document.getElementById('progressBar').style.width=percent+'%';
+            document.getElementById('progressText').innerText=percent+'% Complete';
+            if(percent===100) setTimeout(()=>alert('🎉 Amazing! You mastered the roadmap!'),200);
+        }
+        function animateProgressBar(){ let w=0; const int=setInterval(()=>{ if(w>=12) clearInterval(int); else{ w++; document.getElementById('progressBar').style.width=w+'%'; document.getElementById('progressText').innerText=w+'% Complete';} },40); }
+        function shareRoadmap() {
+            const skill=document.getElementById('metaSkill').innerText;
+            const text=`📚 I'm learning ${skill} with LIAA! Join my journey!`;
+            if(navigator.share) navigator.share({title:'My Learning Roadmap',text:text});
+            else { navigator.clipboard.writeText(text); alert('Copied to clipboard!'); }
+        }
+        async function downloadRoadmapPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const skill=document.getElementById('metaSkill').innerText;
+            const level=document.getElementById('metaLevel').innerText;
+            doc.setFontSize(22); doc.setTextColor(109,103,228); doc.text(`${skill} Roadmap`,20,30);
+            doc.setFontSize(12); doc.setTextColor(100,100,100); doc.text(`Level: ${level}`,20,50); doc.text(`Date: ${new Date().toLocaleDateString()}`,20,60);
+            let y=90;
+            const phases=document.querySelectorAll('.timeline-content');
+            for(let i=0;i<phases.length;i++){
+                if(y>270){ doc.addPage(); y=20; }
+                const title=phases[i].querySelector('h3')?.innerText||'Phase';
+                doc.setFontSize(14); doc.setTextColor(0,0,0); doc.text(`${title}`,20,y); y+=10;
+                const weeks=phases[i].querySelectorAll('.week-header');
+                for(let w of weeks){
+                    if(y>270){ doc.addPage(); y=20; }
+                    const weekTitle=w.querySelector('h4')?.innerText||'Week';
+                    doc.setFontSize(11); doc.text(`• ${weekTitle}`,25,y); y+=6;
+                }
+                y+=12;
+            }
+            doc.save(`${skill}_Roadmap.pdf`);
+        }
+        window.toggleWeekContent=toggleWeekContent;
+        window.toggleTask=toggleTask;
+        window.updateProgress=updateProgress;
+        window.shareRoadmap=shareRoadmap;
+        window.downloadRoadmapPDF=downloadRoadmapPDF;
+        window.generateRoadmap=generateRoadmap;
+        window.showPage=showPage;
+        window.selectLevel=selectLevel;
+        window.selectSkill=selectSkill;
+        document.addEventListener('DOMContentLoaded',()=>{
+            document.querySelectorAll('.level-btn').forEach(btn=>{ btn.addEventListener('click',function(e){ selectLevel(this.innerText.includes('Beginner')?'Beginner':this.innerText.includes('Intermediate')?'Intermediate':'Advanced'); }); });
+        });
+    </script>
 </body>
 </html>
