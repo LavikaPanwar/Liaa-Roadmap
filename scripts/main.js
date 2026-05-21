@@ -231,6 +231,6 @@ console.log('• Expandable Weekly Breakdowns');
 console.log('• PDF Download Functionality');
 console.log('• Responsive Design');
 console.log('• Beautiful Animations');
-console.log('• Founder: Lavika Panwar');
+
 console.log('• Founder: Ekta Rathore');
-console.log('• Founder: Anupriya Kumari');
+
